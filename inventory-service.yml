@@ -1,6 +1,12 @@
 spring:
   application:
     name: inventory-service
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+        alphanumeric-ids:
+          enabled: true
   datasource:
     url: jdbc:mysql://localhost:3306/inventory_db
     username: ${DB_USERNAME}
@@ -11,3 +17,17 @@ spring:
 
 server:
   port: 8083
+
+  
+resilience4j:
+  circuitbreaker:
+    instances:
+      product-service:
+        sliding-window-type: COUNT_BASED # look at last number of request TIME_BASED -> look at last time of request
+        sliding-window-size: 10 #looks at last 10 calls
+        failure-rate-threshold: 50 # 50% or more fail request -> OPEN
+        minimum-number-of-calls: 5 # before calculating failure rate at least 5 call must happen
+        wait-duration-in-open-state: 5s # Wait 5 seconds while OPEN before trying HALF_OPEN
+        permitted-number-of-calls-in-half-open-state: 3 # only 3 request allowed if succeed CLOSED if fail OPEN again
+        automatic-transition-from-open-to-half-open-enabled: true # Automatically go from OPEN -> HALF-OPEN
+        register-health-indicator: true
