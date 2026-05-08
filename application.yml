@@ -10,7 +10,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,info,metrics
+  health:
+    circuitbreakers:
+      enabled: true
 
 logging:
   level:
