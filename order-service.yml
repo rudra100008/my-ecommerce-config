@@ -40,3 +40,31 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 3
         automatic-transition-from-open-to-half-open-enabled: true
         register-health-indicator: true
+  retry:
+    instances:
+      inventory-service:
+        max-attempts: 3
+        wait-duration: 2s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        retryExceptions:
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+          - feign.FeignException.ServiceUnavailable
+        ignoreExceptions:
+          - com.shared_library.Exceptions.BusinessInvalidException
+          - com.shared_library.Exceptions.ResourceNotFoundException
+          - com.shared_library.Exceptions.InsufficientStockException
+      product-service:
+        max-attempts: 3
+        wait-duration: 2s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+        retryExceptions:
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+          - feign.FeignException.ServiceUnavailable
+        ignoreExceptions:
+          - com.shared_library.Exceptions.BusinessInvalidException
+          - com.shared_library.Exceptions.ResourceNotFoundException
+          - com.shared_library.Exceptions.InsufficientStockException
