@@ -40,6 +40,32 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 3
         automatic-transition-from-open-to-half-open-enabled: true
         register-health-indicator: true
+  ratelimiter:
+    instances:
+      createOrder:
+        limit-for-period: 5 # 5 request allowed
+        limit-refresh-period: 1s # per 1 second
+        timeout-duration: 0s # reject  immediately,don't queue
+        register-health-indicator: true
+
+      confirmOrder:
+        limit-for-period: 5
+        limit-refresh-period: 1s
+        timeout-duration: 0s
+        register-health-indicator: true
+
+      cartOperations:
+        limit-for-period: 20          # cart is less critical, allow more
+        limit-refresh-period: 1s
+        timeout-duration: 0s
+        register-health-indicator: true
+
+      orderRead:
+        limit-for-period: 30
+        limit-refresh-period: 1s
+        timeout-duration: 0s
+        register-health-indicator: true
+
   retry:
     instances:
       inventory-service:
@@ -67,4 +93,5 @@ resilience4j:
         ignoreExceptions:
           - com.shared_library.Exceptions.BusinessInvalidException
           - com.shared_library.Exceptions.ResourceNotFoundException
-          - com.shared_library.Exceptions.InsufficientStockException
+          - com.shared_library.Exceptions.
+    
