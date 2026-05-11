@@ -23,3 +23,6 @@ jwt:
   secret: ${JWT_SECRET}
   expiration-ms: 86400000
   refresh-expiration-ms: 604800000
+# user-service.yml (inside config repo)
+internal:
+  secret-key: ${INTERNAL_SECRET_KEY}
