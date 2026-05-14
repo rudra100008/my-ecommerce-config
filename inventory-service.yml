@@ -17,7 +17,11 @@ spring:
 
 server:
   port: 8083
-
+# inventory-service.yml
+logging:
+  level:
+    org.springframework.context.annotation: DEBUG
+    org.springframework.boot.autoconfigure.security: DEBUG
   
 resilience4j:
   circuitbreaker:
