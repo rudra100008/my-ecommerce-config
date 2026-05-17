@@ -42,7 +42,7 @@ spring:
 app:
   frontend-url: http://localhost:3000
   oauth2:
-    redirect-uri: http://localhost:8080/login/oauth2/code/google
+    redirect-uri: http://localhost:3000/oauth-success
 
 
 
