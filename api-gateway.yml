@@ -6,65 +6,67 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allow-credentials: true
-            max-age: 3600
-            allowed-origins:
-              - "http://localhost:3000"
-            allowed-methods:
-              - "GET"
-              - "POST"
-              - "PUT"
-              - "PATCH"
-              - "DELETE"
-              - "OPTIONS"
-            allowed-headers:
-              - "Authorization"
-              - "Content-Type"
-              - "X-Requested-With"
-              - "X-CSRF-TOKEN"
-              - "X-XSRF-TOKEN"
-              - "Accept"
-              - "Origin"
-              - "Access-Control-Request-Method"
-              - "Access-Control-Request-Headers"
-            exposed-headers:
-              - "Authorization"
-              - "Set-Cookie"
-      routes:
-        - id: product-service
-          uri: lb://product-service
-          predicates:
-            - Path=/api/products/**
+      server:
+        webflux:
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allow-credentials: true
+                max-age: 3600
+                allowed-origins:
+                  - "http://localhost:3000"
+                allowed-methods:
+                  - "GET"
+                  - "POST"
+                  - "PUT"
+                  - "PATCH"
+                  - "DELETE"
+                  - "OPTIONS"
+                allowed-headers:
+                  - "Authorization"
+                  - "Content-Type"
+                  - "X-Requested-With"
+                  - "X-CSRF-TOKEN"
+                  - "X-XSRF-TOKEN"
+                  - "Accept"
+                  - "Origin"
+                  - "Access-Control-Request-Method"
+                  - "Access-Control-Request-Headers"
+                exposed-headers:
+                  - "Authorization"
+                  - "Set-Cookie"
+          routes:
+            - id: product-service
+              uri: lb://product-service
+              predicates:
+                - Path=/api/products/**
 
-        - id: product-service-category
-          uri: lb://product-service
-          predicates:
-            - Path=/api/category/**
+            - id: product-service-category
+              uri: lb://product-service
+              predicates:
+                - Path=/api/category/**
 
-        - id: media-service
-          uri: lb://media-service
-          predicates:
-            - Path=/api/media/**
+            - id: media-service
+              uri: lb://media-service
+              predicates:
+                - Path=/api/media/**
 
-        - id: inventory-service
-          uri: lb://inventory-service
-          predicates:
-            - Path=/api/inventory/**
+            - id: inventory-service
+              uri: lb://inventory-service
+              predicates:
+                - Path=/api/inventory/**
 
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/api/users/**,/api/auth/**,/oauth2/**
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/api/users/**,/api/auth/**,/oauth2/**
 
-        - id: order-service
-          uri: lb://order-service
-          predicates:
-            - Path=/api/order/**
+            - id: order-service
+              uri: lb://order-service
+              predicates:
+                - Path=/api/order/**
 
-        - id: order-service-cart
-          uri: lb://order-service
-          predicates:
-            - Path=/api/cart/**
+            - id: order-service-cart
+              uri: lb://order-service
+              predicates:
+                - Path=/api/cart/**
